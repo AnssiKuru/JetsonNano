@@ -1,0 +1,32 @@
+name: Deploy to Jetson
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Send files to Jetson
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.JETSON_IP }}
+          username: jetson
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/home/jetson/project"
+
+      - name: Run code on Jetson
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.JETSON_IP }}
+          username: jetson
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/jetson/project
+            python3 main.py
