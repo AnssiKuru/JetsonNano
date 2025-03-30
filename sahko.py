@@ -18,4 +18,4 @@ plt.xticks(rotation=45)
 
 # Tallennetaan kuva tiedostoksi
 plt.savefig("kuvaaja.png")
-print("✅ Kuvaaja tallennettu tiedostoon: kuvaaja.png")
+print("✅ Kuvaaja tallennettu tiedostoon: kuvaaj2a.png")
